@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/StiLabel.App/StiLabel.App.csproj" />
+    <Project Path="src/StiLabel.Core/StiLabel.Core.csproj" />
+    <Project Path="src/StiLabel.Data/StiLabel.Data.csproj" />
+  </Folder>
+</Solution>
