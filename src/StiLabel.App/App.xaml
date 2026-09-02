@@ -1,4 +1,4 @@
-﻿<Application x:Class="StiLabel.App.App"
+<Application x:Class="StiLabel.App.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:sys="clr-namespace:System;assembly=System.Runtime"
@@ -9,40 +9,77 @@
         <BooleanToVisibilityConverter x:Key="BoolVis"/>
         <converters:InverseBoolToVisibilityConverter x:Key="InverseBoolVis"/>
 
-        <!-- ============ 设计变量 ============ -->
-        <SolidColorBrush x:Key="Bg" Color="#F4F5F7"/>
+        <!-- ============ ChatGPT 经典与现代设计变量 ============ -->
+        <SolidColorBrush x:Key="Bg" Color="#F9F9FB"/>
         <SolidColorBrush x:Key="Surface" Color="#FFFFFF"/>
-        <SolidColorBrush x:Key="SurfaceAlt" Color="#F7F8FA"/>
-        <SolidColorBrush x:Key="SurfaceSunken" Color="#EFF1F4"/>
-        <SolidColorBrush x:Key="Line" Color="#E4E7EC"/>
-        <SolidColorBrush x:Key="LineStrong" Color="#D3D8E0"/>
-        <SolidColorBrush x:Key="Text" Color="#16191F"/>
-        <SolidColorBrush x:Key="TextMuted" Color="#5B6472"/>
-        <SolidColorBrush x:Key="TextSubtle" Color="#98A1AF"/>
-        <SolidColorBrush x:Key="Accent" Color="#4F46E5"/>
-        <SolidColorBrush x:Key="AccentHover" Color="#5F57EA"/>
-        <SolidColorBrush x:Key="AccentPressed" Color="#4338CA"/>
-        <SolidColorBrush x:Key="AccentSoft" Color="#EEEDFC"/>
-        <SolidColorBrush x:Key="AccentLine" Color="#C9C5F7"/>
-        <SolidColorBrush x:Key="Success" Color="#0E9F6E"/>
-        <SolidColorBrush x:Key="SuccessSoft" Color="#E6F6F0"/>
-        <SolidColorBrush x:Key="Danger" Color="#DC2626"/>
-        <SolidColorBrush x:Key="DangerSoft" Color="#FDECEC"/>
-        <SolidColorBrush x:Key="Hover" Color="#F0F1F4"/>
-        <SolidColorBrush x:Key="Pressed" Color="#E5E7EB"/>
+        <SolidColorBrush x:Key="SurfaceAlt" Color="#F4F4F6"/>
+        <SolidColorBrush x:Key="SurfaceSunken" Color="#EAEAEF"/>
+        <SolidColorBrush x:Key="Line" Color="#E5E5EB"/>
+        <SolidColorBrush x:Key="LineSubtle" Color="#F0F0F4"/>
+        <SolidColorBrush x:Key="LineStrong" Color="#D1D1D8"/>
+        
+        <!-- 文本层级 -->
+        <SolidColorBrush x:Key="Text" Color="#0D0D0D"/>
+        <SolidColorBrush x:Key="TextMuted" Color="#5D5D68"/>
+        <SolidColorBrush x:Key="TextSubtle" Color="#8E8E98"/>
 
+        <!-- 强调色：ChatGPT 炭黑与 OpenAI 经典绿 -->
+        <SolidColorBrush x:Key="Accent" Color="#0D0D0D"/>
+        <SolidColorBrush x:Key="AccentHover" Color="#262626"/>
+        <SolidColorBrush x:Key="AccentPressed" Color="#000000"/>
+        <SolidColorBrush x:Key="AccentSoft" Color="#F4F4F6"/>
+        <SolidColorBrush x:Key="AccentLine" Color="#D1D1D8"/>
+
+        <SolidColorBrush x:Key="OpenAIGreen" Color="#10A37F"/>
+        <SolidColorBrush x:Key="OpenAIGreenHover" Color="#0E8C6D"/>
+        <SolidColorBrush x:Key="OpenAIGreenSoft" Color="#E6F7F2"/>
+        <SolidColorBrush x:Key="OpenAIGreenLine" Color="#A3E5D2"/>
+
+        <SolidColorBrush x:Key="Success" Color="#10A37F"/>
+        <SolidColorBrush x:Key="SuccessSoft" Color="#E6F7F2"/>
+        <SolidColorBrush x:Key="Danger" Color="#EF4444"/>
+        <SolidColorBrush x:Key="DangerSoft" Color="#FEE2E2"/>
+        <SolidColorBrush x:Key="Hover" Color="#F0F0F3"/>
+        <SolidColorBrush x:Key="Pressed" Color="#E5E5EA"/>
+
+        <!-- 聊天专属色 -->
+        <SolidColorBrush x:Key="ChatInk" Color="#0D0D0D"/>
+        <SolidColorBrush x:Key="ChatInkSoft" Color="#F4F4F6"/>
+        <SolidColorBrush x:Key="ChatHint" Color="#8E8E98"/>
+        <SolidColorBrush x:Key="ChatUserBubble" Color="#F4F4F6"/>
+        <SolidColorBrush x:Key="ChatUserText" Color="#0D0D0D"/>
+
+        <!-- 圆角系统 -->
         <CornerRadius x:Key="RadiusSm">6</CornerRadius>
-        <CornerRadius x:Key="RadiusMd">8</CornerRadius>
-        <CornerRadius x:Key="RadiusLg">12</CornerRadius>
+        <CornerRadius x:Key="RadiusMd">9</CornerRadius>
+        <CornerRadius x:Key="RadiusLg">14</CornerRadius>
+        <CornerRadius x:Key="RadiusXl">18</CornerRadius>
+        <CornerRadius x:Key="RadiusPill">999</CornerRadius>
+        
+        <!-- 字阶 -->
         <sys:Double x:Key="FontCaption">11</sys:Double>
         <sys:Double x:Key="FontBody">13</sys:Double>
 
-        <DropShadowEffect x:Key="ShadowSoft" BlurRadius="18" ShadowDepth="3" Direction="270" Opacity="0.10" Color="#101828"/>
-        <DropShadowEffect x:Key="ShadowPopup" BlurRadius="24" ShadowDepth="5" Direction="270" Opacity="0.16" Color="#101828"/>
+        <!-- 阴影系统 -->
+        <DropShadowEffect x:Key="ShadowSoft" BlurRadius="16" ShadowDepth="2" Direction="270" Opacity="0.05" Color="#000000"/>
+        <DropShadowEffect x:Key="ShadowPopup" BlurRadius="22" ShadowDepth="4" Direction="270" Opacity="0.10" Color="#000000"/>
+        <DropShadowEffect x:Key="ShadowComposer" BlurRadius="18" ShadowDepth="2" Direction="270" Opacity="0.06" Color="#000000"/>
+        <DropShadowEffect x:Key="ShadowCardHover" BlurRadius="14" ShadowDepth="3" Direction="270" Opacity="0.08" Color="#000000"/>
+
+        <!-- ============ 几何矢量图标 (ChatGPT & Modern AI) ============ -->
+        <Geometry x:Key="SparkleGeometry">M12,2 C12.6,7.2 16.8,11.4 22,12 C16.8,12.6 12.6,16.8 12,22 C11.4,16.8 7.2,12.6 2,12 C7.2,11.4 11.4,7.2 12,2 Z</Geometry>
+        <Geometry x:Key="SearchGeometry">M10,4 A6,6 0 1 1 10,16 A6,6 0 1 1 10,4 Z M14.8,14.8 L19,19</Geometry>
+        <Geometry x:Key="GridGeometry">M3,3 H9 V9 H3 Z M11,3 H17 V9 H11 Z M3,11 H9 V17 H3 Z M11,11 H17 V17 H11 Z</Geometry>
+        <Geometry x:Key="CloseGeometry">M5,5 L19,19 M19,5 L5,19</Geometry>
+        <Geometry x:Key="ArrowUpGeometry">M12,4 L4,12 L5.4,13.4 L11,7.8 V20 H13 V7.8 L18.6,13.4 L20,12 Z</Geometry>
+        <Geometry x:Key="PlusGeometry">M11,4 H13 V11 H20 V13 H13 V20 H11 V13 H4 V11 H11 Z</Geometry>
+        <Geometry x:Key="PaperclipGeometry">M16.5,6 V17.5 A4,4 0 0,1 8.5,17.5 V5 A2.5,2.5 0 0,1 13.5,5 V16 A1,1 0 0,1 11.5,16 V6 H10 V16 A2.5,2.5 0 0,0 15,16 V5 A4,4 0 0,0 7,5 V17.5 A5.5,5.5 0 0,0 18,17.5 V6 Z</Geometry>
+        <Geometry x:Key="TerminalGeometry">M4,6 L10,12 L4,18 M12,18 H20</Geometry>
+        <Geometry x:Key="ChevronDownGeometry">M4,7 L10,13 L16,7</Geometry>
 
         <!-- ============ 基础排版 ============ -->
         <Style TargetType="Window">
-            <Setter Property="FontFamily" Value="Microsoft YaHei UI, Segoe UI"/>
+            <Setter Property="FontFamily" Value="Microsoft YaHei UI, Segoe UI, PingFang SC, -apple-system"/>
             <Setter Property="FontSize" Value="{StaticResource FontBody}"/>
             <Setter Property="Foreground" Value="{StaticResource Text}"/>
             <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
@@ -52,7 +89,7 @@
         </Style>
 
         <Style x:Key="SectionTitle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontSize" Value="13"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Foreground" Value="{StaticResource Text}"/>
         </Style>
@@ -67,26 +104,19 @@
             <Setter Property="BorderBrush" Value="{StaticResource Line}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="CornerRadius" Value="{StaticResource RadiusLg}"/>
+            <Setter Property="Effect" Value="{StaticResource ShadowSoft}"/>
         </Style>
 
-        <SolidColorBrush x:Key="ChatInk" Color="#111827"/>
-        <SolidColorBrush x:Key="ChatInkSoft" Color="#F3F4F6"/>
-        <SolidColorBrush x:Key="ChatHint" Color="#9CA3AF"/>
-        <Geometry x:Key="SparkleGeometry">M12,1.6 C12.55,6.4 15.6,9.45 20.4,10 C15.6,10.55 12.55,13.6 12,18.4 C11.45,13.6 8.4,10.55 3.6,10 C8.4,9.45 11.45,6.4 12,1.6 Z</Geometry>
-        <Geometry x:Key="SearchGeometry">M10,4 A6,6 0 1 1 10,16 A6,6 0 1 1 10,4 Z M14.8,14.8 L19,19</Geometry>
-        <Geometry x:Key="GridGeometry">M3,3 H8 V8 H3 Z M10,3 H15 V8 H10 Z M17,3 H22 V8 H17 Z M3,10 H8 V15 H3 Z M10,10 H15 V15 H10 Z M17,10 H22 V15 H17 Z M3,17 H8 V22 H3 Z M10,17 H15 V22 H10 Z M17,17 H22 V22 H17 Z</Geometry>
-        <Geometry x:Key="CloseGeometry">M5,5 L19,19 M19,5 L5,19</Geometry>
-
-        <!-- ============ 滚动条 ============ -->
+        <!-- ============ 极简 ChatGPT 滚动条 ============ -->
         <Style x:Key="ScrollThumb" TargetType="Thumb">
             <Setter Property="IsTabStop" Value="False"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Thumb">
-                        <Border x:Name="Bd" Background="#C4CAD4" CornerRadius="3" Margin="3,2"/>
+                        <Border x:Name="Bd" Background="#D5D5DE" CornerRadius="3" Margin="2,1"/>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#9BA4B2"/>
+                                <Setter TargetName="Bd" Property="Background" Value="#A5A5B2"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -95,7 +125,7 @@
         </Style>
         <Style TargetType="ScrollBar">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Width" Value="10"/>
+            <Setter Property="Width" Value="7"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ScrollBar">
@@ -114,7 +144,7 @@
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="Orientation" Value="Horizontal">
-                                <Setter Property="Height" Value="10"/>
+                                <Setter Property="Height" Value="7"/>
                                 <Setter Property="Width" Value="Auto"/>
                                 <Setter TargetName="PART_Track" Property="IsDirectionReversed" Value="False"/>
                             </Trigger>
@@ -124,7 +154,8 @@
             </Setter>
         </Style>
 
-        <!-- ============ 按钮 ============ -->
+        <!-- ============ 按钮系统 ============ -->
+        <!-- 主按钮：ChatGPT 经典沉稳深色 -->
         <Style x:Key="ButtonBase" TargetType="Button">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="{StaticResource Accent}"/>
@@ -154,28 +185,13 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName="Bd" Storyboard.TargetProperty="Opacity"
-                                                             To="0.90" Duration="0:0:0.08"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName="Bd" Storyboard.TargetProperty="Opacity"
-                                                             To="1" Duration="0:0:0.12"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource AccentHover}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Bd" Property="Opacity" Value="0.78"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource AccentPressed}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="Bd" Property="Opacity" Value="0.40"/>
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.38"/>
                                 <Setter Property="Cursor" Value="Arrow"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -184,99 +200,182 @@
             </Setter>
         </Style>
 
-        <!-- 默认按钮 = 主操作 -->
+        <!-- 默认按钮 -->
         <Style TargetType="Button" BasedOn="{StaticResource ButtonBase}"/>
 
+        <!-- 次级按钮 (Secondary Button) -->
         <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource ButtonBase}">
             <Setter Property="Background" Value="{StaticResource Surface}"/>
             <Setter Property="Foreground" Value="{StaticResource Text}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource LineStrong}"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{StaticResource Hover}"/>
-                </Trigger>
-            </Style.Triggers>
+            <Setter Property="BorderBrush" Value="{StaticResource Line}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{StaticResource RadiusMd}"
+                                Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Hover}"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource LineStrong}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Pressed}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.45"/>
+                                <Setter Property="Cursor" Value="Arrow"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
+        <!-- 幽灵按钮 (Ghost Button) -->
         <Style x:Key="GhostButton" TargetType="Button" BasedOn="{StaticResource ButtonBase}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="{StaticResource TextMuted}"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="FontWeight" Value="Normal"/>
-            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Padding" Value="9,5"/>
             <Setter Property="MinHeight" Value="28"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{StaticResource Hover}"/>
-                    <Setter Property="Foreground" Value="{StaticResource Text}"/>
-                </Trigger>
-            </Style.Triggers>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                CornerRadius="{StaticResource RadiusSm}"
+                                Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Hover}"/>
+                                <Setter Property="Foreground" Value="{StaticResource Text}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Pressed}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.4"/>
+                                <Setter Property="Cursor" Value="Arrow"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
+        <!-- 微型按钮 (Tiny Button) -->
         <Style x:Key="TinyButton" TargetType="Button" BasedOn="{StaticResource ButtonBase}">
             <Setter Property="Background" Value="{StaticResource Surface}"/>
             <Setter Property="Foreground" Value="{StaticResource TextMuted}"/>
             <Setter Property="BorderBrush" Value="{StaticResource Line}"/>
             <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="FontSize" Value="{StaticResource FontCaption}"/>
-            <Setter Property="Padding" Value="9,3"/>
+            <Setter Property="Padding" Value="8,3"/>
             <Setter Property="MinHeight" Value="24"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{StaticResource Hover}"/>
-                    <Setter Property="Foreground" Value="{StaticResource Text}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="AccentChipButton" TargetType="Button" BasedOn="{StaticResource TinyButton}">
-            <Setter Property="Background" Value="{StaticResource AccentSoft}"/>
-            <Setter Property="Foreground" Value="{StaticResource Accent}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource AccentLine}"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-        </Style>
-
-        <!-- 圆形图标按钮，聊天区的发送/停止/收起用它 -->
-        <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource ButtonBase}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="{StaticResource TextMuted}"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Width" Value="30"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="MinHeight" Value="0"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="Normal"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{StaticResource Hover}"/>
-                    <Setter Property="Foreground" Value="{StaticResource Text}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="SendButton" TargetType="Button" BasedOn="{StaticResource ButtonBase}">
-            <Setter Property="Width" Value="34"/>
-            <Setter Property="Height" Value="34"/>
-            <Setter Property="MinHeight" Value="0"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="FontSize" Value="15"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="17">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="{StaticResource RadiusSm}"
+                                Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Hover}"/>
+                                <Setter Property="Foreground" Value="{StaticResource Text}"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource LineStrong}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Pressed}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 胶囊操作按钮 (Accent Chip Button) -->
+        <Style x:Key="AccentChipButton" TargetType="Button" BasedOn="{StaticResource TinyButton}">
+            <Setter Property="Background" Value="{StaticResource OpenAIGreenSoft}"/>
+            <Setter Property="Foreground" Value="{StaticResource OpenAIGreen}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource OpenAIGreenLine}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="10,4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="{StaticResource RadiusPill}"
+                                Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="True">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource AccentHover}"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource OpenAIGreen}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource OpenAIGreen}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource AccentPressed}"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource OpenAIGreenHover}"/>
+                                <Setter Property="Foreground" Value="White"/>
                             </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource LineStrong}"/>
-                                <Setter Property="Cursor" Value="Arrow"/>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 图标按钮 -->
+        <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource ButtonBase}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource TextMuted}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="{StaticResource RadiusSm}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Hover}"/>
+                                <Setter Property="Foreground" Value="{StaticResource Text}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Pressed}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -288,20 +387,34 @@
             <Setter Property="Width" Value="32"/>
             <Setter Property="Height" Value="32"/>
             <Setter Property="Foreground" Value="{StaticResource TextMuted}"/>
+        </Style>
+
+        <!-- ChatGPT 标志性纯黑圆形发送按钮 -->
+        <Style x:Key="SendButton" TargetType="Button" BasedOn="{StaticResource ButtonBase}">
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="{StaticResource Text}"/>
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="Bd" Background="Transparent" CornerRadius="8"
-                                Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="16">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource ChatInkSoft}"/>
-                                <Setter Property="Foreground" Value="{StaticResource ChatInk}"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource AccentHover}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Pressed}"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource AccentPressed}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Line}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextSubtle}"/>
+                                <Setter Property="Cursor" Value="Arrow"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -309,30 +422,60 @@
             </Setter>
         </Style>
 
+        <!-- ChatGPT 停止生成按钮 -->
+        <Style x:Key="StopButton" TargetType="Button" BasedOn="{StaticResource ButtonBase}">
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Background" Value="{StaticResource Text}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="16">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource AccentHover}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ChatGPT Prompt Starters 提示词卡片 -->
         <Style x:Key="PromptPill" TargetType="Button" BasedOn="{StaticResource ButtonBase}">
-            <Setter Property="Background" Value="{StaticResource ChatInkSoft}"/>
-            <Setter Property="Foreground" Value="{StaticResource ChatInk}"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Background" Value="{StaticResource Surface}"/>
+            <Setter Property="Foreground" Value="{StaticResource Text}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Line}"/>
+            <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Padding" Value="8,8"/>
-            <Setter Property="MinHeight" Value="38"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="MinHeight" Value="48"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="Bd"
                                 Background="{TemplateBinding Background}"
-                                CornerRadius="19"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="12"
                                 Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Opacity" Value="0.86"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource SurfaceAlt}"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource LineStrong}"/>
+                                <Setter TargetName="Bd" Property="Effect" Value="{StaticResource ShadowCardHover}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Bd" Property="Opacity" Value="0.72"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Pressed}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="Bd" Property="Opacity" Value="0.45"/>
@@ -346,48 +489,22 @@
 
         <Style x:Key="ComposerLinkButton" TargetType="Button" BasedOn="{StaticResource GhostButton}">
             <Setter Property="Foreground" Value="{StaticResource TextMuted}"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Padding" Value="8,4"/>
             <Setter Property="MinHeight" Value="28"/>
-        </Style>
-
-        <Style x:Key="StopButton" TargetType="Button" BasedOn="{StaticResource ButtonBase}">
-            <Setter Property="Width" Value="34"/>
-            <Setter Property="Height" Value="34"/>
-            <Setter Property="MinHeight" Value="0"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Background" Value="{StaticResource DangerSoft}"/>
-            <Setter Property="Foreground" Value="{StaticResource Danger}"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="17"
-                                BorderBrush="#F5C6C6" BorderThickness="1">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Danger}"/>
-                                <Setter Property="Foreground" Value="White"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
         </Style>
 
         <!-- ============ 输入框 ============ -->
         <Style TargetType="TextBox">
             <Setter Property="Foreground" Value="{StaticResource Text}"/>
             <Setter Property="Background" Value="{StaticResource Surface}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource LineStrong}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Line}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Padding" Value="10,6"/>
             <Setter Property="MinHeight" Value="32"/>
-            <Setter Property="CaretBrush" Value="{StaticResource Accent}"/>
-            <Setter Property="SelectionBrush" Value="{StaticResource Accent}"/>
+            <Setter Property="CaretBrush" Value="{StaticResource Text}"/>
+            <Setter Property="SelectionBrush" Value="{StaticResource LineStrong}"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="Template">
@@ -418,14 +535,14 @@
                                 <Setter TargetName="Hint" Property="Visibility" Value="Visible"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource TextSubtle}"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource LineStrong}"/>
                             </Trigger>
                             <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource Accent}"/>
-                                <Setter TargetName="Bd" Property="BorderThickness" Value="1.6"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource Text}"/>
+                                <Setter TargetName="Bd" Property="BorderThickness" Value="1.4"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource SurfaceSunken}"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource SurfaceAlt}"/>
                                 <Setter Property="Foreground" Value="{StaticResource TextSubtle}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -434,7 +551,7 @@
             </Setter>
         </Style>
 
-        <!-- 聊天输入：无边框，靠外层卡片包住 -->
+        <!-- 聊天输入框：纯净无边框 -->
         <Style x:Key="FlatTextBox" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
@@ -469,11 +586,11 @@
         <Style TargetType="PasswordBox">
             <Setter Property="Foreground" Value="{StaticResource Text}"/>
             <Setter Property="Background" Value="{StaticResource Surface}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource LineStrong}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Line}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Padding" Value="10,6"/>
             <Setter Property="MinHeight" Value="32"/>
-            <Setter Property="CaretBrush" Value="{StaticResource Accent}"/>
+            <Setter Property="CaretBrush" Value="{StaticResource Text}"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -491,11 +608,11 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource TextSubtle}"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource LineStrong}"/>
                             </Trigger>
                             <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource Accent}"/>
-                                <Setter TargetName="Bd" Property="BorderThickness" Value="1.6"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource Text}"/>
+                                <Setter TargetName="Bd" Property="BorderThickness" Value="1.4"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -529,8 +646,8 @@
                                 <Setter TargetName="Bd" Property="Background" Value="{StaticResource Hover}"/>
                             </Trigger>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource AccentSoft}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Accent}"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource SurfaceAlt}"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -549,12 +666,12 @@
                         <Grid>
                             <Border x:Name="Chrome"
                                     Background="{StaticResource Surface}"
-                                    BorderBrush="{StaticResource LineStrong}" BorderThickness="1"
+                                    BorderBrush="{StaticResource Line}" BorderThickness="1"
                                     CornerRadius="{StaticResource RadiusMd}" SnapsToDevicePixels="True"/>
                             <Path x:Name="Arrow"
                                   HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,11,0"
-                                  Data="M0,0 L4.5,4.5 L9,0"
-                                  Stroke="{StaticResource TextMuted}" StrokeThickness="1.5"
+                                  Data="M0,0 L4,4 L8,0"
+                                  Stroke="{StaticResource TextMuted}" StrokeThickness="1.4"
                                   StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
                                   IsHitTestVisible="False"/>
                             <ContentPresenter x:Name="Selected"
@@ -569,12 +686,11 @@
                                      Margin="10,1,32,1" Padding="0"
                                      Background="Transparent" BorderThickness="0"
                                      Foreground="{StaticResource Text}"
-                                     CaretBrush="{StaticResource Accent}"
-                                     SelectionBrush="{StaticResource Accent}"
+                                     CaretBrush="{StaticResource Text}"
+                                     SelectionBrush="{StaticResource LineStrong}"
                                      VerticalContentAlignment="Center"
                                      Visibility="Collapsed"
                                      IsReadOnly="{TemplateBinding IsReadOnly}"/>
-                            <!-- 可编辑时只让右侧箭头区域可点，文本框才能拿到光标 -->
                             <ToggleButton x:Name="Toggle" Focusable="False" ClickMode="Press"
                                           Template="{StaticResource ComboHitArea}"
                                           HorizontalAlignment="Stretch"
@@ -604,16 +720,16 @@
                                 <Setter TargetName="Toggle" Property="Width" Value="30"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource TextSubtle}"/>
+                                <Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource LineStrong}"/>
                             </Trigger>
                             <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                                <Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource Accent}"/>
+                                <Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource Text}"/>
                             </Trigger>
                             <Trigger Property="IsDropDownOpen" Value="True">
-                                <Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource Accent}"/>
+                                <Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource Text}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="Chrome" Property="Background" Value="{StaticResource SurfaceSunken}"/>
+                                <Setter TargetName="Chrome" Property="Background" Value="{StaticResource SurfaceAlt}"/>
                                 <Setter TargetName="Arrow" Property="Stroke" Value="{StaticResource TextSubtle}"/>
                                 <Setter Property="Foreground" Value="{StaticResource TextSubtle}"/>
                             </Trigger>
@@ -623,20 +739,21 @@
             </Setter>
         </Style>
 
+        <!-- ChatGPT 模型选择药丸胶囊 (PillComboBox) -->
         <Style x:Key="PillComboBox" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
             <Setter Property="Height" Value="28"/>
-            <Setter Property="MinWidth" Value="92"/>
-            <Setter Property="MaxWidth" Value="168"/>
+            <Setter Property="MinWidth" Value="96"/>
+            <Setter Property="MaxWidth" Value="170"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="{StaticResource ChatInk}"/>
+            <Setter Property="Foreground" Value="{StaticResource Text}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
                         <Grid>
                             <Border x:Name="Chrome"
-                                    Background="{StaticResource Surface}"
-                                    BorderBrush="{StaticResource LineStrong}" BorderThickness="1"
+                                    Background="{StaticResource SurfaceAlt}"
+                                    BorderBrush="{StaticResource Line}" BorderThickness="1"
                                     CornerRadius="14" SnapsToDevicePixels="True"/>
                             <Path x:Name="Arrow"
                                   HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"
@@ -655,9 +772,9 @@
                                      Style="{x:Null}" Template="{StaticResource ComboEditableTextBoxTemplate}"
                                      Margin="10,1,26,1" Padding="0"
                                      Background="Transparent" BorderThickness="0"
-                                     Foreground="{StaticResource ChatInk}"
-                                     CaretBrush="{StaticResource Accent}"
-                                     SelectionBrush="{StaticResource Accent}"
+                                     Foreground="{StaticResource Text}"
+                                     CaretBrush="{StaticResource Text}"
+                                     SelectionBrush="{StaticResource LineStrong}"
                                      VerticalContentAlignment="Center"
                                      Visibility="Collapsed"
                                      IsReadOnly="{TemplateBinding IsReadOnly}"/>
@@ -690,16 +807,14 @@
                                 <Setter TargetName="Toggle" Property="Width" Value="28"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource TextSubtle}"/>
-                            </Trigger>
-                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                                <Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource ChatInk}"/>
+                                <Setter TargetName="Chrome" Property="Background" Value="{StaticResource Hover}"/>
+                                <Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource LineStrong}"/>
                             </Trigger>
                             <Trigger Property="IsDropDownOpen" Value="True">
-                                <Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource ChatInk}"/>
+                                <Setter TargetName="Chrome" Property="BorderBrush" Value="{StaticResource Text}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="Chrome" Property="Background" Value="{StaticResource SurfaceSunken}"/>
+                                <Setter TargetName="Chrome" Property="Background" Value="{StaticResource SurfaceAlt}"/>
                                 <Setter TargetName="Arrow" Property="Stroke" Value="{StaticResource TextSubtle}"/>
                                 <Setter Property="Foreground" Value="{StaticResource TextSubtle}"/>
                             </Trigger>
@@ -709,7 +824,7 @@
             </Setter>
         </Style>
 
-        <!-- ============ 复选框 ============ -->
+        <!-- ============ 复选框 (ChatGPT 极简黑白方块) ============ -->
         <Style TargetType="CheckBox">
             <Setter Property="Foreground" Value="{StaticResource Text}"/>
             <Setter Property="Cursor" Value="Hand"/>
@@ -732,11 +847,11 @@
                         </StackPanel>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Box" Property="BorderBrush" Value="{StaticResource Accent}"/>
+                                <Setter TargetName="Box" Property="BorderBrush" Value="{StaticResource Text}"/>
                             </Trigger>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="Box" Property="Background" Value="{StaticResource Accent}"/>
-                                <Setter TargetName="Box" Property="BorderBrush" Value="{StaticResource Accent}"/>
+                                <Setter TargetName="Box" Property="Background" Value="{StaticResource Text}"/>
+                                <Setter TargetName="Box" Property="BorderBrush" Value="{StaticResource Text}"/>
                                 <Setter TargetName="Tick" Property="Visibility" Value="Visible"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
@@ -773,8 +888,7 @@
                     <Setter TargetName="Bd" Property="Background" Value="{StaticResource Hover}"/>
                 </Trigger>
                 <Trigger Property="IsSubmenuOpen" Value="True">
-                    <Setter TargetName="Bd" Property="Background" Value="{StaticResource AccentSoft}"/>
-                    <Setter Property="Foreground" Value="{StaticResource Accent}"/>
+                    <Setter TargetName="Bd" Property="Background" Value="{StaticResource SurfaceAlt}"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -922,14 +1036,14 @@
         <!-- ============ 提示与分隔 ============ -->
         <Style TargetType="ToolTip">
             <Setter Property="Foreground" Value="{StaticResource Text}"/>
+            <Setter Property="FontSize" Value="{StaticResource FontCaption}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ToolTip">
-                        <Border Background="{StaticResource Surface}"
-                                BorderBrush="{StaticResource Line}" BorderThickness="1"
-                                CornerRadius="{StaticResource RadiusSm}" Padding="9,6"
+                        <Border Background="{StaticResource Text}"
+                                CornerRadius="{StaticResource RadiusSm}" Padding="9,5"
                                 Effect="{StaticResource ShadowSoft}">
-                            <ContentPresenter/>
+                            <TextBlock Text="{TemplateBinding Content}" Foreground="White" FontSize="11"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -942,12 +1056,12 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="GridSplitter">
                         <Border Background="Transparent">
-                            <Border x:Name="Grip" Width="3" CornerRadius="2" Background="Transparent"
+                            <Border x:Name="Grip" Width="3" CornerRadius="1.5" Background="Transparent"
                                     HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,24"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Grip" Property="Background" Value="{StaticResource AccentLine}"/>
+                                <Setter TargetName="Grip" Property="Background" Value="{StaticResource LineStrong}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

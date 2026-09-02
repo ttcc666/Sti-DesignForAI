@@ -4,9 +4,11 @@
              Background="Transparent">
     <Viewbox Stretch="Uniform">
         <Border x:Name="Paper"
-                Background="#FFFCF8"
-                BorderBrush="#C4B8A5"
-                BorderThickness="1">
+                Background="#FFFFFF"
+                BorderBrush="{StaticResource Line}"
+                BorderThickness="1"
+                CornerRadius="2"
+                Effect="{StaticResource ShadowSoft}">
             <Canvas x:Name="Board" />
         </Border>
     </Viewbox>

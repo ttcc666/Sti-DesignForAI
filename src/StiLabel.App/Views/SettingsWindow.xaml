@@ -16,7 +16,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
                         <Border x:Name="Bd" Background="Transparent" CornerRadius="8"
-                                Padding="9,7" Margin="0,1" SnapsToDevicePixels="True">
+                                Padding="10,8" Margin="0,1" SnapsToDevicePixels="True">
                             <ContentPresenter/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -24,7 +24,8 @@
                                 <Setter TargetName="Bd" Property="Background" Value="{StaticResource Hover}"/>
                             </Trigger>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource AccentSoft}"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource SurfaceAlt}"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -42,47 +43,47 @@
 
     <DockPanel>
 
-        <!-- 顶部 -->
+        <!-- 顶部 (ChatGPT 风格标题栏) -->
         <Border DockPanel.Dock="Top" Background="{StaticResource Surface}"
-                BorderBrush="{StaticResource Line}" BorderThickness="0,0,0,1" Padding="20,14">
+                BorderBrush="{StaticResource Line}" BorderThickness="0,0,0,1" Padding="24,16">
             <StackPanel>
-                <TextBlock Text="模型接入" FontSize="15" FontWeight="SemiBold"/>
-                <TextBlock Style="{StaticResource Caption}" Margin="0,3,0,0"
-                           Text="左边选厂商会按官网默认填好地址和请求格式。OpenAI、Anthropic、Gemini、Azure OpenAI、Ollama 都走各自官方 SDK，换厂商不影响已有对话能力。"/>
+                <TextBlock Text="模型接入" FontSize="16" FontWeight="SemiBold" Foreground="{StaticResource Text}"/>
+                <TextBlock Style="{StaticResource Caption}" Margin="0,4,0,0"
+                           Text="选择模型厂商与接入协议。OpenAI、Anthropic、Gemini、Azure OpenAI、Ollama 均走官方标准 SDK。"/>
             </StackPanel>
         </Border>
 
-        <!-- 底部 -->
+        <!-- 底部操作栏 -->
         <Border DockPanel.Dock="Bottom" Background="{StaticResource Surface}"
-                BorderBrush="{StaticResource Line}" BorderThickness="0,1,0,0" Padding="20,12">
+                BorderBrush="{StaticResource Line}" BorderThickness="0,1,0,0" Padding="24,14">
             <DockPanel>
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                    <Button Content="取消" Style="{StaticResource GhostButton}" Width="72" IsCancel="True"/>
+                    <Button Content="取消" Style="{StaticResource SecondaryButton}" Width="76" IsCancel="True"/>
                     <Button Content="测连通" Style="{StaticResource SecondaryButton}" Width="88"
                             Margin="8,0,0,0" Click="Test_Click"/>
                     <Button Content="保存并启用" Width="110" Margin="8,0,0,0" IsDefault="True" Click="Save_Click"/>
                 </StackPanel>
-                <CheckBox x:Name="EnableBox" Content="启用对话" VerticalAlignment="Center"/>
+                <CheckBox x:Name="EnableBox" Content="启用对话" VerticalAlignment="Center" FontWeight="Medium"/>
             </DockPanel>
         </Border>
 
-        <Grid Margin="16">
+        <Grid Margin="18">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="262"/>
+                <ColumnDefinition Width="260"/>
                 <ColumnDefinition Width="14"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <!-- 厂商列表 -->
-            <Border Grid.Column="0" Style="{StaticResource Card}">
+            <Border Grid.Column="0" Style="{StaticResource Card}" CornerRadius="14">
                 <DockPanel>
                     <Border DockPanel.Dock="Top" Padding="14,11" BorderBrush="{StaticResource Line}"
                             BorderThickness="0,0,0,1" Background="{StaticResource SurfaceAlt}"
-                            CornerRadius="12,12,0,0">
-                        <TextBlock Text="厂商" Style="{StaticResource SectionTitle}"/>
+                            CornerRadius="14,14,0,0">
+                        <TextBlock Text="厂商服务商" Style="{StaticResource SectionTitle}"/>
                     </Border>
                     <ListBox x:Name="ProviderList" BorderThickness="0" Background="Transparent"
-                             Padding="7,7,4,7" ItemContainerStyle="{StaticResource ProviderItem}"
+                             Padding="8,8,6,8" ItemContainerStyle="{StaticResource ProviderItem}"
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                              SelectionChanged="Provider_Changed">
                         <ListBox.GroupStyle>
@@ -98,14 +99,14 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <DockPanel>
-                                    <Border DockPanel.Dock="Left" Width="26" Height="26" CornerRadius="7"
+                                    <Border DockPanel.Dock="Left" Width="26" Height="26" CornerRadius="6"
                                             Background="{Binding Accent}" Margin="0,0,10,0" VerticalAlignment="Center">
                                         <TextBlock Text="{Binding Badge}" Foreground="White" FontSize="10"
                                                    FontWeight="Bold" HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"/>
                                     </Border>
                                     <StackPanel VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding Name}" FontSize="12"/>
+                                        <TextBlock Text="{Binding Name}" FontSize="12" Foreground="{StaticResource Text}"/>
                                         <TextBlock Text="{Binding Caption}" FontSize="10"
                                                    Foreground="{StaticResource TextSubtle}"
                                                    TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
@@ -117,23 +118,24 @@
                 </DockPanel>
             </Border>
 
-            <!-- 表单 -->
-            <Border Grid.Column="2" Style="{StaticResource Card}">
+            <!-- 表单区域 -->
+            <Border Grid.Column="2" Style="{StaticResource Card}" CornerRadius="14">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Margin="20,18,18,20">
+                    <StackPanel Margin="22,20,20,22">
 
                         <DockPanel>
-                            <Border DockPanel.Dock="Left" x:Name="ProviderBadge" Width="34" Height="34"
-                                    CornerRadius="9" Background="{StaticResource Accent}" Margin="0,0,12,0"
+                            <Border DockPanel.Dock="Left" x:Name="ProviderBadge" Width="36" Height="36"
+                                    CornerRadius="8" Background="{StaticResource Accent}" Margin="0,0,12,0"
                                     VerticalAlignment="Top">
-                                <TextBlock x:Name="ProviderBadgeText" Text="AI" Foreground="White" FontSize="12"
+                                <TextBlock x:Name="ProviderBadgeText" Text="AI" Foreground="White" FontSize="13"
                                            FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
-                            <Button DockPanel.Dock="Right" x:Name="ConsoleLink" Content="拿密钥 ↗"
+                            <Button DockPanel.Dock="Right" x:Name="ConsoleLink" Content="获取密钥 ↗"
                                     Style="{StaticResource TinyButton}" VerticalAlignment="Top"
-                                    Foreground="{StaticResource Accent}" Click="Console_Click"/>
+                                    Foreground="{StaticResource OpenAIGreen}" Click="Console_Click"/>
                             <StackPanel>
-                                <TextBlock x:Name="ProviderName" Text="OpenAI" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBlock x:Name="ProviderName" Text="OpenAI" FontSize="15" FontWeight="SemiBold"
+                                           Foreground="{StaticResource Text}"/>
                                 <TextBlock x:Name="ProviderNote" Style="{StaticResource Caption}" Margin="0,3,0,0"/>
                             </StackPanel>
                         </DockPanel>
@@ -157,7 +159,7 @@
                             <ComboBox x:Name="ModelBox" IsEditable="True"/>
                         </DockPanel>
                         <TextBlock Style="{StaticResource Caption}" Margin="0,6,0,0"
-                                   Text="下拉里是常见模型名，也可以直接手输。填好地址和密钥后点「拉取列表」能读到该厂商真实可用的模型。"/>
+                                   Text="下拉里是常见模型名，也可以直接手输。填好地址和密钥后点「拉取列表」能读取该厂商可用模型。"/>
 
                         <TextBlock Text="API Key" Style="{StaticResource FieldLabel}" Margin="0,18,0,6"/>
                         <PasswordBox x:Name="KeyBox"/>
@@ -166,7 +168,7 @@
                         <TextBlock Text="上下文上限" Style="{StaticResource FieldLabel}" Margin="0,18,0,6"/>
                         <ComboBox x:Name="ContextBox" IsEditable="True"/>
                         <TextBlock Style="{StaticResource Caption}" Margin="0,6,0,0"
-                                   Text="按模型窗口填。超过这个 token 预算才压缩。常见 8K～128K，也可以手输数字。"/>
+                                   Text="按模型窗口填。超过该 token 预算时进行压缩。常见 8K～128K，亦可手输数值。"/>
 
                         <TextBlock Text="上下文压缩" Style="{StaticResource FieldLabel}" Margin="0,18,0,6"/>
                         <ComboBox x:Name="CompactBox" DisplayMemberPath="Name"
@@ -177,13 +179,13 @@
                             <TextBlock Text="保留轮数" Style="{StaticResource FieldLabel}"/>
                             <ComboBox x:Name="TurnsBox" IsEditable="True"/>
                             <TextBlock Style="{StaticResource Caption}" Margin="0,6,0,0"
-                                       Text="滑动窗口只留最近这几轮用户对话，更早的丢掉。"/>
+                                       Text="滑动窗口只保留最近这几轮用户对话。"/>
                         </StackPanel>
 
                         <Border x:Name="StatusStrip" CornerRadius="8" Padding="12,9" Margin="0,18,0,0"
                                 Background="{StaticResource SurfaceAlt}" BorderBrush="{StaticResource Line}"
                                 BorderThickness="1" Visibility="Collapsed">
-                            <TextBlock x:Name="TestResult" TextWrapping="Wrap" FontSize="12"/>
+                            <TextBlock x:Name="TestResult" TextWrapping="Wrap" FontSize="12" Foreground="{StaticResource Text}"/>
                         </Border>
 
                         <Border Background="{StaticResource SurfaceAlt}" BorderBrush="{StaticResource Line}"
@@ -192,7 +194,7 @@
                                 <TextBlock Text="说明" FontSize="11" FontWeight="SemiBold"
                                            Foreground="{StaticResource TextMuted}"/>
                                 <TextBlock Style="{StaticResource Caption}" Margin="0,5,0,0"
-                                           Text="助手要靠工具调用来改画布，所以请选支持 function calling 的模型。厂商不支持时会自动退回纯文字回复。请求由各厂商官方 SDK 发出，协议细节不用你管。密钥只存在本机 SQLite 里。"/>
+                                           Text="助手通过工具调用操作画布，建议选择支持 Function Calling 的模型。密钥仅持久化在本地 SQLite 数据库中。"/>
                             </StackPanel>
                         </Border>
                     </StackPanel>
