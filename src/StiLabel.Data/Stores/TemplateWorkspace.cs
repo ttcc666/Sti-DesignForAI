@@ -109,13 +109,13 @@ public sealed class TemplateWorkspace : ITemplateWorkspace
             await JsonSerializer.SerializeAsync(stream, _document, JsonOptions, cancellationToken);
         }
 
-        _db.Client.Insertable(new TemplateVersionRow
+        await _db.Client.Insertable(new TemplateVersionRow
         {
             SourcePath = FilePath ?? "",
             VersionPath = versionPath,
             Note = note,
             CreatedAt = DateTime.Now
-        }).ExecuteCommand();
+        }).ExecuteCommandAsync(cancellationToken);
         return versionPath;
     }
 

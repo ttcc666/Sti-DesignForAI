@@ -260,8 +260,6 @@ public partial class StiDesignerHost : UserControl, IStiWorkbench
             return;
         }
 
-        StiLicenseLoader.TryLoad();
-        StiLocalizationLoader.TryLoadChinese();
         DisableReportChecker();
         try
         {

@@ -11,58 +11,51 @@ public sealed class AppStore : IAppStore
 
     public AppStore(StiLabelDb db) => _db = db;
 
-    public Task<string?> GetAsync(string key, CancellationToken cancellationToken = default)
+    public async Task<string?> GetAsync(string key, CancellationToken cancellationToken = default)
     {
-        var value = _db.Client.Queryable<AppSettingRow>()
+        return await _db.Client.Queryable<AppSettingRow>()
             .Where(x => x.Key == key)
             .Select(x => x.Value)
-            .First();
-        return Task.FromResult(value);
+            .FirstAsync(cancellationToken);
     }
 
-    public Task SetAsync(string key, string? value, CancellationToken cancellationToken = default)
+    public async Task SetAsync(string key, string? value, CancellationToken cancellationToken = default)
     {
-        var exists = _db.Client.Queryable<AppSettingRow>().Any(x => x.Key == key);
+        var exists = await _db.Client.Queryable<AppSettingRow>().AnyAsync(x => x.Key == key, cancellationToken);
         if (exists)
         {
-            _db.Client.Updateable(new AppSettingRow { Key = key, Value = value })
-                .ExecuteCommand();
+            await _db.Client.Updateable(new AppSettingRow { Key = key, Value = value })
+                .ExecuteCommandAsync(cancellationToken);
         }
         else
         {
-            _db.Client.Insertable(new AppSettingRow { Key = key, Value = value })
-                .ExecuteCommand();
+            await _db.Client.Insertable(new AppSettingRow { Key = key, Value = value })
+                .ExecuteCommandAsync(cancellationToken);
         }
-
-        return Task.CompletedTask;
     }
 
-    public Task<IReadOnlyList<RecentFileItem>> ListRecentAsync(CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<RecentFileItem>> ListRecentAsync(CancellationToken cancellationToken = default)
     {
-        var rows = _db.Client.Queryable<RecentFileRow>()
-            .OrderBy(x => x.OpenedAt, SqlSugar.OrderByType.Desc)
+        var rows = await _db.Client.Queryable<RecentFileRow>()
+            .OrderBy(x => x.Id, SqlSugar.OrderByType.Desc)
             .Take(10)
-            .ToList()
-            .Select(x => new RecentFileItem { Path = x.Path, OpenedAt = x.OpenedAt })
-            .ToList();
-        return Task.FromResult<IReadOnlyList<RecentFileItem>>(rows);
+            .ToListAsync(cancellationToken);
+        return rows.Select(x => new RecentFileItem { Path = x.Path, OpenedAt = x.OpenedAt }).ToList();
     }
 
-    public Task TouchRecentAsync(string path, CancellationToken cancellationToken = default)
+    public async Task TouchRecentAsync(string path, CancellationToken cancellationToken = default)
     {
-        _db.Client.Deleteable<RecentFileRow>().Where(x => x.Path == path).ExecuteCommand();
-        _db.Client.Insertable(new RecentFileRow { Path = path, OpenedAt = DateTime.Now }).ExecuteCommand();
-        var extra = _db.Client.Queryable<RecentFileRow>()
-            .OrderBy(x => x.OpenedAt, SqlSugar.OrderByType.Desc)
-            .Skip(10)
+        await _db.Client.Deleteable<RecentFileRow>().Where(x => x.Path == path).ExecuteCommandAsync(cancellationToken);
+        await _db.Client.Insertable(new RecentFileRow { Path = path, OpenedAt = DateTime.Now }).ExecuteCommandAsync(cancellationToken);
+        var allIds = await _db.Client.Queryable<RecentFileRow>()
+            .OrderBy(x => x.Id, SqlSugar.OrderByType.Desc)
             .Select(x => x.Id)
-            .ToList();
-        if (extra.Count > 0)
+            .ToListAsync(cancellationToken);
+        if (allIds.Count > 10)
         {
-            _db.Client.Deleteable<RecentFileRow>().In(extra).ExecuteCommand();
+            var extra = allIds.Skip(10).ToList();
+            await _db.Client.Deleteable<RecentFileRow>().In(extra).ExecuteCommandAsync(cancellationToken);
         }
-
-        return Task.CompletedTask;
     }
 
     public async Task<IReadOnlyList<SampleRow>> LoadSampleRowsAsync(CancellationToken cancellationToken = default)

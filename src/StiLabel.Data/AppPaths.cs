@@ -11,6 +11,8 @@ public static class AppPaths
     public static string Versions => Path.Combine(Root, "versions");
     public static string SampleData => Path.Combine(Root, "sample-data.json");
     public static string ChatImages => Path.Combine(Root, "chat-images");
+    public static string Logs => Path.Combine(Root, "logs");
+    public static string ErrorLog => Path.Combine(Logs, "error.log");
 
     public static void EnsureCreated()
     {
@@ -18,5 +20,6 @@ public static class AppPaths
         Directory.CreateDirectory(Templates);
         Directory.CreateDirectory(Versions);
         Directory.CreateDirectory(ChatImages);
+        Directory.CreateDirectory(Logs);
     }
 }

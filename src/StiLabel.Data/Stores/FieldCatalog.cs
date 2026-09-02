@@ -10,23 +10,21 @@ public sealed class FieldCatalog : IFieldCatalog
 
     public FieldCatalog(StiLabelDb db) => _db = db;
 
-    public Task<IReadOnlyList<FieldItem>> ListAsync(CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<FieldItem>> ListAsync(CancellationToken cancellationToken = default)
     {
-        var items = _db.Client.Queryable<FieldDefinitionRow>()
+        var rows = await _db.Client.Queryable<FieldDefinitionRow>()
             .OrderBy(x => x.SortOrder)
-            .ToList()
-            .Select(ToItem)
-            .ToList();
-        return Task.FromResult<IReadOnlyList<FieldItem>>(items);
+            .ToListAsync(cancellationToken);
+        return rows.Select(ToItem).ToList();
     }
 
-    public Task<FieldItem?> FindAsync(string keyOrName, CancellationToken cancellationToken = default)
+    public async Task<FieldItem?> FindAsync(string keyOrName, CancellationToken cancellationToken = default)
     {
-        var row = FindRow(keyOrName);
-        return Task.FromResult(row is null ? null : ToItem(row));
+        var row = await FindRowAsync(keyOrName, cancellationToken);
+        return row is null ? null : ToItem(row);
     }
 
-    public Task<FieldItem> UpsertAsync(
+    public async Task<FieldItem> UpsertAsync(
         string displayName,
         string? key = null,
         string dataType = "text",
@@ -39,18 +37,24 @@ public sealed class FieldCatalog : IFieldCatalog
         }
 
         var type = string.IsNullOrWhiteSpace(dataType) ? "text" : dataType.Trim().ToLowerInvariant();
-        var row = FindRow(name) ?? (!string.IsNullOrWhiteSpace(key) ? FindRow(key.Trim()) : null);
+        var row = await FindRowAsync(name, cancellationToken);
+        if (row is null && !string.IsNullOrWhiteSpace(key))
+        {
+            row = await FindRowAsync(key.Trim(), cancellationToken);
+        }
+
         if (row is not null)
         {
             row.DisplayName = name;
             row.DataType = type;
-            _db.Client.Updateable(row).ExecuteCommand();
-            return Task.FromResult(ToItem(row));
+            await _db.Client.Updateable(row).ExecuteCommandAsync(cancellationToken);
+            return ToItem(row);
         }
 
-        var unique = UniqueKey(MakeKey(string.IsNullOrWhiteSpace(key) ? name : key.Trim()));
-        var maxOrder = _db.Client.Queryable<FieldDefinitionRow>().Any()
-            ? _db.Client.Queryable<FieldDefinitionRow>().Max(x => x.SortOrder)
+        var unique = await UniqueKeyAsync(MakeKey(string.IsNullOrWhiteSpace(key) ? name : key.Trim()), cancellationToken);
+        var hasAny = await _db.Client.Queryable<FieldDefinitionRow>().AnyAsync(cancellationToken);
+        var maxOrder = hasAny
+            ? await _db.Client.Queryable<FieldDefinitionRow>().MaxAsync(x => x.SortOrder, cancellationToken)
             : 0;
         row = new FieldDefinitionRow
         {
@@ -60,34 +64,30 @@ public sealed class FieldCatalog : IFieldCatalog
             Required = false,
             SortOrder = maxOrder + 1
         };
-        row.Id = _db.Client.Insertable(row).ExecuteReturnIdentity();
-        return Task.FromResult(ToItem(row));
+        row.Id = await _db.Client.Insertable(row).ExecuteReturnIdentityAsync(cancellationToken);
+        return ToItem(row);
     }
 
-    public Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
     {
-        _db.Client.Deleteable<FieldDefinitionRow>().Where(x => x.Id == id).ExecuteCommand();
-        return Task.CompletedTask;
+        await _db.Client.Deleteable<FieldDefinitionRow>().Where(x => x.Id == id).ExecuteCommandAsync(cancellationToken);
     }
 
-    public Task ClearAsync(CancellationToken cancellationToken = default)
+    public async Task ClearAsync(CancellationToken cancellationToken = default)
     {
-        _db.Client.Deleteable<FieldDefinitionRow>().ExecuteCommand();
-        return Task.CompletedTask;
+        await _db.Client.Deleteable<FieldDefinitionRow>().ExecuteCommandAsync(cancellationToken);
     }
 
-    private FieldDefinitionRow? FindRow(string keyOrName) =>
-        _db.Client.Queryable<FieldDefinitionRow>()
+    private async Task<FieldDefinitionRow?> FindRowAsync(string keyOrName, CancellationToken cancellationToken) =>
+        await _db.Client.Queryable<FieldDefinitionRow>()
             .Where(x => x.Key == keyOrName || x.DisplayName == keyOrName)
-            .Take(1)
-            .ToList()
-            .FirstOrDefault();
+            .FirstAsync(cancellationToken);
 
-    private string UniqueKey(string key)
+    private async Task<string> UniqueKeyAsync(string key, CancellationToken cancellationToken)
     {
         var current = key;
         var n = 2;
-        while (_db.Client.Queryable<FieldDefinitionRow>().Any(x => x.Key == current))
+        while (await _db.Client.Queryable<FieldDefinitionRow>().AnyAsync(x => x.Key == current, cancellationToken))
         {
             current = key + n;
             n++;
