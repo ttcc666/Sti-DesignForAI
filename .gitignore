@@ -9,3 +9,13 @@ appsettings.local.json
 *.db
 *.db-shm
 *.db-wal
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+TestResults/
+*.log
+*.tmp
+packages/
+publish/
