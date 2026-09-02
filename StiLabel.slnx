@@ -4,4 +4,7 @@
     <Project Path="src/StiLabel.Core/StiLabel.Core.csproj" />
     <Project Path="src/StiLabel.Data/StiLabel.Data.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/StiLabel.Tests/StiLabel.Tests.csproj" />
+  </Folder>
 </Solution>

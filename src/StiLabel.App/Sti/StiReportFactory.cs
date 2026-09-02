@@ -222,10 +222,20 @@ public static class StiReportFactory
                     continue;
                 }
 
+                string valueStr;
+                if (variable.ValueObject is DateTime dt)
+                {
+                    valueStr = dt.TimeOfDay == TimeSpan.Zero ? dt.ToString("yyyy-MM-dd") : dt.ToString("yyyy-MM-dd HH:mm:ss");
+                }
+                else
+                {
+                    valueStr = variable.ValueObject?.ToString() ?? variable.Value ?? "";
+                }
+
                 doc.Variables.Add(new LabelVariable
                 {
                     Name = variable.Name,
-                    Value = variable.ValueObject?.ToString() ?? variable.Value ?? "",
+                    Value = valueStr,
                     DataType = MapDataType(variable.Type)
                 });
             }
@@ -355,15 +365,18 @@ public static class StiReportFactory
             }
             case LabelComponentType.Rect:
             {
-                var box = new StiText(rect)
+                var shape = new StiShape(rect)
                 {
                     Name = name,
-                    Text = ""
+                    ShapeType = new StiRectangleShapeType(),
+                    Size = (float)Math.Max(0.3, item.LineWidthMm),
+                    BorderColor = ParseColor(string.IsNullOrWhiteSpace(item.BorderColor) ? item.ForeColor : item.BorderColor),
+                    Brush = string.IsNullOrWhiteSpace(item.FillColor)
+                        ? new StiEmptyBrush()
+                        : new StiSolidBrush(ParseColor(item.FillColor))
                 };
-                ApplyFill(box, item);
-                ApplyBorder(box, item, force: true);
-                Unlock(box, item);
-                return box;
+                Unlock(shape, item);
+                return shape;
             }
             default:
             {
@@ -587,7 +600,7 @@ public static class StiReportFactory
                 item.Bold = text.Font?.Bold == true;
                 item.Italic = text.Font?.Italic == true;
                 item.Underline = text.Font?.Underline == true;
-                item.FontName = string.IsNullOrWhiteSpace(text.Font?.Name) ? "Microsoft YaHei" : text.Font.Name;
+                item.FontName = DraftBuilder.NormalizeFontName(text.Font?.Name) ?? "Microsoft YaHei";
                 item.TextAlign = text.HorAlignment switch
                 {
                     StiTextHorAlignment.Center => "center",
@@ -764,7 +777,17 @@ public static class StiReportFactory
             return "date";
         }
 
-        return t == typeof(string) || t == typeof(char) || t == typeof(bool) ? "text" : "number";
+        if (t == typeof(bool))
+        {
+            return "bool";
+        }
+
+        if (t == typeof(string) || t == typeof(char))
+        {
+            return "text";
+        }
+
+        return "number";
     }
 
     private static bool IsReserved(string? name) =>

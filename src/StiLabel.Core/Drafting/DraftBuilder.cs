@@ -70,13 +70,14 @@ public sealed class DraftBuilder : IDraftBuilder
             (doc.Page.WidthMm, doc.Page.HeightMm) = (doc.Page.HeightMm, doc.Page.WidthMm);
         }
 
+        var m = doc.Page.MarginMm;
         foreach (var item in doc.Components)
         {
-            item.W = Math.Min(item.W, doc.Page.WidthMm);
-            item.H = Math.Min(item.H, doc.Page.HeightMm);
+            item.W = Math.Min(item.W, Math.Max(2, doc.Page.WidthMm - m * 2));
+            item.H = Math.Min(item.H, Math.Max(2, doc.Page.HeightMm - m * 2));
         }
 
-        Inset(doc, doc.Page.MarginMm);
+        Inset(doc, m);
         return doc;
     }
 
