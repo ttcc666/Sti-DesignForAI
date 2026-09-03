@@ -25,6 +25,7 @@ public static class StiReportFactory
     {
         var report = new StiReport
         {
+            CalculationMode = StiCalculationMode.Interpretation,
             ReportUnit = StiReportUnitType.Millimeters,
             ReportName = "Label"
         };

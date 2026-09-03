@@ -1,4 +1,4 @@
-﻿using System.Collections.Specialized;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,16 +43,35 @@ public partial class MainWindow : Window
                 return;
             }
 
-            e.Cancel = true;
-            if (await viewModel.ConfirmDiscardAsync())
+            if (!viewModel.HasUnsavedChanges())
             {
-                _allowClose = true;
-                Close();
+                return;
+            }
+
+            e.Cancel = true;
+            if (_isConfirmingClose)
+            {
+                return;
+            }
+
+            _isConfirmingClose = true;
+            try
+            {
+                if (await viewModel.ConfirmDiscardAsync())
+                {
+                    _allowClose = true;
+                    await Dispatcher.InvokeAsync(Close);
+                }
+            }
+            finally
+            {
+                _isConfirmingClose = false;
             }
         };
     }
 
     private bool _allowClose;
+    private bool _isConfirmingClose;
 
     private void Exit_Click(object sender, RoutedEventArgs e) => Close();
 

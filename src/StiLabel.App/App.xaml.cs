@@ -18,6 +18,7 @@ public partial class App : Application
     {
         RegisterGlobalExceptionHandling();
         AppPaths.EnsureCreated();
+        Stimulsoft.Report.StiOptions.Engine.ForceInterpretationMode = true;
         StiLicenseLoader.TryLoad();
         StiLocalizationLoader.TryLoadChinese();
 

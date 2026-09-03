@@ -69,8 +69,12 @@ public partial class StiDesignerHost : UserControl, IStiWorkbench
 
     public void LoadMrt(string path)
     {
-        var report = new StiReport();
+        var report = new StiReport
+        {
+            CalculationMode = StiCalculationMode.Interpretation
+        };
         report.Load(path);
+        report.CalculationMode = StiCalculationMode.Interpretation;
         _document = StiReportFactory.ToDocument(report);
         _appliedKey = null;
         AssignReport(report);
@@ -86,31 +90,43 @@ public partial class StiDesignerHost : UserControl, IStiWorkbench
 
     public void Preview(IReadOnlyList<FieldItem> fields, SampleRow? sample)
     {
-        var report = CurrentReport;
+        if (IsEmbedded && _designer is not null)
+        {
+            RegisterFields(fields, sample);
+            RefreshPreview(switchToPreview: true);
+            return;
+        }
+
+        var report = (CurrentReport.Clone() as StiReport) ?? CurrentReport;
+        report.CalculationMode = StiCalculationMode.Interpretation;
         StiReportFactory.RegisterSample(report, fields, sample);
+        report.Render(false);
         report.Show();
     }
 
     public void Print(IReadOnlyList<FieldItem> fields, SampleRow? sample, string? printerName = null)
     {
-        var report = CurrentReport;
+        var report = (CurrentReport.Clone() as StiReport) ?? CurrentReport;
+        report.CalculationMode = StiCalculationMode.Interpretation;
         StiReportFactory.RegisterSample(report, fields, sample);
-        if (!string.IsNullOrWhiteSpace(printerName))
+
+        var hasPrinter = !string.IsNullOrWhiteSpace(printerName);
+        if (hasPrinter)
         {
-            report.PrinterSettings.PrinterName = printerName;
+            report.PrinterSettings.PrinterName = printerName!;
         }
 
-        report.Print(true);
+        report.Render(false);
+        // 已指定打印机时直接打印（虚拟打印机如PDF会自动提示保存路径，物理机直接出样），避免WPF下WinForms对话框被遮挡
+        report.Print(showPrintDialog: !hasPrinter);
     }
 
     public void Export(string path, string format, IReadOnlyList<FieldItem> fields, SampleRow? sample)
     {
-        var report = CurrentReport;
+        var report = (CurrentReport.Clone() as StiReport) ?? CurrentReport;
+        report.CalculationMode = StiCalculationMode.Interpretation;
         StiReportFactory.RegisterSample(report, fields, sample);
-        if (!report.IsRendered)
-        {
-            report.Render(false);
-        }
+        report.Render(false);
 
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
         var pdf = format.Equals("pdf", StringComparison.OrdinalIgnoreCase);
@@ -200,6 +216,7 @@ public partial class StiDesignerHost : UserControl, IStiWorkbench
             check.Enabled = false;
         }
 
+        StiOptions.Engine.ForceInterpretationMode = true;
         StiOptions.Engine.ShowReportRenderingMessages = false;
         StiOptions.Designer.Toolbars.StatusBar.ShowReportChecker = false;
     }

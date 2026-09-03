@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:views="clr-namespace:StiLabel.App.Views"
         Title="{Binding Title}"
+        Icon="{StaticResource ProductIconImage}"
         Width="1360" Height="860"
         MinWidth="1080" MinHeight="660"
         WindowStartupLocation="CenterScreen"
@@ -25,11 +26,11 @@
 
                 <!-- 左侧品牌与菜单 -->
                 <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
-                    <!-- ChatGPT 纯黑圆形标志 -->
-                    <Border Width="28" Height="28" CornerRadius="14" Background="{StaticResource Accent}"
+                    <!-- STI 标签工位产品标志：标签纸 + AI 光点 -->
+                    <Border Width="28" Height="28" CornerRadius="14" Background="{StaticResource BrandTeal}"
                             VerticalAlignment="Center">
-                        <Path Data="{StaticResource SparkleGeometry}" Fill="White" Width="14" Height="14"
-                              Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <ContentControl Template="{StaticResource ProductMarkTemplate}" Foreground="White"
+                                        Width="18" Height="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                     <TextBlock Text="STI 标签工位" FontSize="14" FontWeight="SemiBold"
                                VerticalAlignment="Center" Margin="10,0,6,0" Foreground="{StaticResource Text}"/>
@@ -154,9 +155,9 @@
                             <Path Data="M8,5 L15,12 L8,19" Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
                                   StrokeThickness="1.6" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"/>
                         </Button>
-                        <Border Width="30" Height="30" CornerRadius="15" Background="{StaticResource ChatInk}" Margin="0,14,0,0">
-                            <Path Data="{StaticResource SparkleGeometry}" Fill="White" Width="14" Height="14"
-                                  Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Width="30" Height="30" CornerRadius="15" Background="{StaticResource BrandTeal}" Margin="0,14,0,0">
+                            <ContentControl Template="{StaticResource ProductMarkTemplate}" Foreground="White"
+                                            Width="19" Height="19" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <TextBlock Text="助手" FontSize="11" Foreground="{StaticResource TextMuted}" Margin="0,14,0,0"
                                    HorizontalAlignment="Center">
@@ -190,9 +191,9 @@
                                 
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
                                             Visibility="{Binding IsWelcomeState, Converter={StaticResource InverseBoolVis}}">
-                                    <Border Width="26" Height="26" CornerRadius="13" Background="{StaticResource ChatInk}">
-                                        <Path Data="{StaticResource SparkleGeometry}" Fill="White" Width="13" Height="13"
-                                              Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Border Width="26" Height="26" CornerRadius="13" Background="{StaticResource BrandTeal}">
+                                        <ContentControl Template="{StaticResource ProductMarkTemplate}" Foreground="White"
+                                                        Width="17" Height="17" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                     <TextBlock Text="标签助手" FontSize="13" FontWeight="SemiBold"
                                                VerticalAlignment="Center" Margin="9,0,0,0" Foreground="{StaticResource Text}"/>
@@ -370,11 +371,11 @@
                             <Border MinHeight="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=ScrollViewer}}">
                                 <StackPanel VerticalAlignment="Center" Margin="20,12,20,12">
                                     
-                                    <!-- ChatGPT 圆形黑色大图标 -->
-                                    <Border Width="44" Height="44" CornerRadius="22" Background="{StaticResource ChatInk}"
+                                    <!-- STI 标签工位产品标志 -->
+                                    <Border Width="44" Height="44" CornerRadius="22" Background="{StaticResource BrandTeal}"
                                             HorizontalAlignment="Center">
-                                        <Path Data="{StaticResource SparkleGeometry}" Fill="White" Width="20" Height="20"
-                                              Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <ContentControl Template="{StaticResource ProductMarkTemplate}" Foreground="White"
+                                                        Width="29" Height="29" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                     
                                     <TextBlock Text="有什么我可以帮忙的？" FontSize="18" FontWeight="Bold"
@@ -478,13 +479,13 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <!-- ChatGPT 助手圆形微头像 -->
+                                        <!-- 标签助手产品标志 -->
                                         <Border x:Name="Avatar" Grid.Column="0"
                                                 Width="26" Height="26" CornerRadius="13"
-                                                Background="{StaticResource ChatInk}"
+                                                Background="{StaticResource BrandTeal}"
                                                 VerticalAlignment="Top" Margin="0,2,10,0">
-                                            <Path Data="{StaticResource SparkleGeometry}" Fill="White" Width="12" Height="12"
-                                                  Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <ContentControl Template="{StaticResource ProductMarkTemplate}" Foreground="White"
+                                                            Width="17" Height="17" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Border>
 
                                         <StackPanel Grid.Column="1">
@@ -743,9 +744,7 @@
                                 BorderThickness="1" CornerRadius="8" Padding="10,8" Margin="0,8,0,0">
                             <TextBlock Text="{Binding SampleSummary}" Style="{StaticResource Caption}"/>
                         </Border>
-                        <Button Content="预览" Margin="0,10,0,0" Style="{StaticResource SecondaryButton}"
-                                Command="{Binding PreviewLabelCommand}"/>
-                        <Button Content="打样" Margin="0,8,0,0" Height="34"
+                        <Button Content="打样" Margin="0,10,0,0" Height="34"
                                 Command="{Binding PrintLabelCommand}"
                                 IsEnabled="{Binding CanPrint}"/>
                     </StackPanel>

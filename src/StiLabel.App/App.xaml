@@ -23,12 +23,15 @@
         <SolidColorBrush x:Key="TextMuted" Color="#5D5D68"/>
         <SolidColorBrush x:Key="TextSubtle" Color="#8E8E98"/>
 
-        <!-- 强调色：ChatGPT 炭黑与 OpenAI 经典绿 -->
+        <!-- 强调色：沉稳炭黑 + STI 标签工位品牌青绿 -->
         <SolidColorBrush x:Key="Accent" Color="#0D0D0D"/>
         <SolidColorBrush x:Key="AccentHover" Color="#262626"/>
         <SolidColorBrush x:Key="AccentPressed" Color="#000000"/>
         <SolidColorBrush x:Key="AccentSoft" Color="#F4F4F6"/>
         <SolidColorBrush x:Key="AccentLine" Color="#D1D1D8"/>
+
+        <SolidColorBrush x:Key="BrandTeal" Color="#0E8C6D"/>
+        <SolidColorBrush x:Key="BrandTealHover" Color="#0B765C"/>
 
         <SolidColorBrush x:Key="OpenAIGreen" Color="#10A37F"/>
         <SolidColorBrush x:Key="OpenAIGreenHover" Color="#0E8C6D"/>
@@ -66,8 +69,34 @@
         <DropShadowEffect x:Key="ShadowComposer" BlurRadius="18" ShadowDepth="2" Direction="270" Opacity="0.06" Color="#000000"/>
         <DropShadowEffect x:Key="ShadowCardHover" BlurRadius="14" ShadowDepth="3" Direction="270" Opacity="0.08" Color="#000000"/>
 
-        <!-- ============ 几何矢量图标 (ChatGPT & Modern AI) ============ -->
+        <!-- ============ 几何矢量图标 ============ -->
         <Geometry x:Key="SparkleGeometry">M12,2 C12.6,7.2 16.8,11.4 22,12 C16.8,12.6 12.6,16.8 12,22 C11.4,16.8 7.2,12.6 2,12 C7.2,11.4 11.4,7.2 12,2 Z</Geometry>
+        <!-- 产品标志：标签纸 + AI 光点 -->
+        <Geometry x:Key="ProductLabelGeometry">M3,7 C3,5.9 3.9,5 5,5 H13.5 L20,11.5 V20 H3 Z</Geometry>
+        <Geometry x:Key="ProductLabelLinesGeometry">M6,9 H12 M6,13 H16 M6,17 H13</Geometry>
+        <Geometry x:Key="ProductSparkGeometry">M18,1.5 C18.2,3.2 19.1,4.1 20.8,4.3 C19.1,4.5 18.2,5.4 18,7.1 C17.8,5.4 16.9,4.5 15.2,4.3 C16.9,4.1 17.8,3.2 18,1.5 Z</Geometry>
+        <RectangleGeometry x:Key="ProductIconTileGeometry" Rect="0,0,24,24" RadiusX="6" RadiusY="6"/>
+        <Pen x:Key="ProductIconLinePen" Brush="{StaticResource Accent}" Thickness="1.4"/>
+        <DrawingImage x:Key="ProductIconImage">
+            <DrawingImage.Drawing>
+                <DrawingGroup>
+                    <GeometryDrawing Brush="{StaticResource BrandTeal}" Geometry="{StaticResource ProductIconTileGeometry}"/>
+                    <GeometryDrawing Brush="White" Geometry="{StaticResource ProductLabelGeometry}"/>
+                    <GeometryDrawing Pen="{StaticResource ProductIconLinePen}" Geometry="{StaticResource ProductLabelLinesGeometry}"/>
+                    <GeometryDrawing Brush="White" Geometry="{StaticResource ProductSparkGeometry}"/>
+                </DrawingGroup>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+        <ControlTemplate x:Key="ProductMarkTemplate" TargetType="ContentControl">
+            <Viewbox Stretch="Uniform">
+                <Canvas Width="24" Height="24">
+                    <Path Data="{StaticResource ProductLabelGeometry}" Fill="{TemplateBinding Foreground}"/>
+                    <Path Data="{StaticResource ProductLabelLinesGeometry}" Stroke="{StaticResource Accent}"
+                          StrokeThickness="1.4" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                    <Path Data="{StaticResource ProductSparkGeometry}" Fill="{TemplateBinding Foreground}"/>
+                </Canvas>
+            </Viewbox>
+        </ControlTemplate>
         <Geometry x:Key="SearchGeometry">M10,4 A6,6 0 1 1 10,16 A6,6 0 1 1 10,4 Z M14.8,14.8 L19,19</Geometry>
         <Geometry x:Key="GridGeometry">M3,3 H9 V9 H3 Z M11,3 H17 V9 H11 Z M3,11 H9 V17 H3 Z M11,11 H17 V17 H11 Z</Geometry>
         <Geometry x:Key="CloseGeometry">M5,5 L19,19 M19,5 L5,19</Geometry>

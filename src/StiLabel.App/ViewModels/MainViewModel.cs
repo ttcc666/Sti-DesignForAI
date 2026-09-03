@@ -1079,7 +1079,7 @@ public sealed partial class MainViewModel : ObservableObject
     {
         if (!CanPrint)
         {
-            MessageBox.Show("未检测到打印机。预览仍可用。", "STI 标签工位");
+            MessageBox.Show("未检测到打印机。请确认系统已添加可用打印机。", "STI 标签工位");
             return;
         }
 
@@ -1088,7 +1088,20 @@ public sealed partial class MainViewModel : ObservableObject
             return;
         }
 
-        _sti.Print(Fields.Select(f => f.ToItem()).ToList(), SampleRow, SelectedPrinter);
+        try
+        {
+            _sti.Print(Fields.Select(f => f.ToItem()).ToList(), SampleRow, SelectedPrinter);
+            StatusPrinter = string.IsNullOrWhiteSpace(SelectedPrinter) ? "打样任务已提交" : $"已发送打样任务至：{SelectedPrinter}";
+            MessageBox.Show(
+                $"打样任务已发送至打印机：\n{SelectedPrinter ?? "默认打印机"}",
+                "STI 标签工位",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"打样失败：\n{ex.Message}", "STI 标签工位", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     [RelayCommand]
@@ -1445,6 +1458,12 @@ public sealed partial class MainViewModel : ObservableObject
         {
             VersionFiles.Add(new VersionEntry { Path = path });
         }
+    }
+
+    public bool HasUnsavedChanges()
+    {
+        PersistDesigner();
+        return _workspace.IsDirty;
     }
 
     public async Task<bool> ConfirmDiscardAsync()
